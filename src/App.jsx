@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [tasks, setTasks] = useState([]);
+  const [input, setInput] = useState("");
+
+  const addTask = () => {
+    if (!input.trim()) return;
+    setTasks([...tasks, { id: Date.now(), text: input.trim(), done: false }]);
+    setInput("");
+  };
+
+  const toggleTask = (id) =>
+    setTasks(tasks.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+
+  const deleteTask = (id) =>
+    setTasks(tasks.filter((t) => t.id !== id));
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app">
+      <h1>To Do</h1>
 
-export default App
+      <div className="input-row">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && addTask()}
+          placeholder="Nueva tarea..."
+        />
+        <button onClick={addTask}>Agregar</button>
+      </div>
+
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id} className={task.done ? "done" : ""}>
+            <span onClick={() => toggleTask(task.id)}>{task.text}</span>
+            <button onClick={() => deleteTask(task.id)}>✕</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
