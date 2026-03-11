@@ -1,56 +1,124 @@
-body {
-  font-family: sans-serif;
-  display: flex;
-  justify-content: center;
-  padding: 40px 16px;
-}
-
 .app {
+  background: var(--app-bg, white); /* Usa variable o blanco por defecto */
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
+  margin: 20px;
 }
 
-h1 {
-  margin-bottom: 16px;
+/* Ajuste para que se vea bien en modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .app {
+    background: #242424;
+    --app-bg: #242424;
+  }
+}
+
+.stats {
+  color: #888;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .input-row {
   display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 10px;
+  margin-bottom: 25px;
 }
 
-input {
+.input-row input {
   flex: 1;
-  padding: 8px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 12px;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  outline: none;
+  transition: border-color 0.3s;
 }
 
-button {
-  padding: 8px 12px;
-  cursor: pointer;
+.input-row input:focus {
+  border-color: #646cff;
 }
 
+.btn-add {
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 0 20px;
+}
+
+/* Lista de tareas */
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: transform 0.2s;
 }
 
-li span {
+@media (prefers-color-scheme: dark) {
+  li {
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
+li:hover {
+  transform: translateX(5px);
+}
+
+.task-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+/* Checkbox personalizado (básico) */
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
   cursor: pointer;
+  accent-color: #646cff;
 }
 
-li.done span {
-  text-decoration: line-through;
-  color: #aaa;
+.edit-input {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1px solid #646cff;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit, .btn-delete {
+  padding: 5px 8px;
+  font-size: 0.9rem;
+  background: transparent;
+  border: 1px solid #eee;
+}
+
+@media (prefers-color-scheme: dark) {
+  .btn-edit, .btn-delete { border-color: #444; }
 }
